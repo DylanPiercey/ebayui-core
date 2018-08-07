@@ -9,22 +9,19 @@ function getTemplateData(state, input) {
     const hijax = input.hijax || false;
     let items = (inputItems).map((item, index) => {
         const itemHtmlAttributes = processHtmlAttributes(item);
-        let tag = 'a';
         let ariaCurrent = null;
         let role;
         const href = item.href || null;
         const current = ((inputItems.length - 1) === index);
         let shouldHandleClick = true;
         if (current && !href) {
-            tag = 'span';
-            ariaCurrent = 'page';
+            ariaCurrent = 'location';
             shouldHandleClick = false;
         }
-        if (hijax) {
+        if (hijax && href) {
             role = 'button';
         }
         return {
-            tag,
             role,
             htmlAttributes: itemHtmlAttributes,
             renderBody: item.renderBody,

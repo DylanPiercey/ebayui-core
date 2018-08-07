@@ -9,7 +9,6 @@ test('renders basic structure', context => {
     expect(h2Tag.length).to.equal(1);
     expect(h2Tag.html()).to.equal(mock.basicItems.headingText);
     expect($('nav li').length).to.equal(mock.basicItems.items.length);
-    expect($('nav li a').length).to.equal(mock.basicItems.items.length - 1);
 });
 
 test('should set item roles for hijax version', context => {
@@ -31,12 +30,12 @@ test('renders <a> without href for missing input href on non-last item', context
     expect(li.length).to.equal(mock.firstItemMissingHref.items.length);
 });
 
-test('renders span tag if href is null on last item', context => {
+test('renders a tag with no href attribute when href is null on last item', context => {
     const $ = testUtils.getCheerio(context.render(mock.basicItems));
     const li = $('nav li');
     expect(li.length).to.equal(mock.basicItems.items.length);
-    const currentElement = $('span', li[li.length - 1]);
-    expect(currentElement.attr('aria-current')).to.equal('page');
+    const currentElement = $('a', li[li.length - 1]);
+    expect(currentElement.attr('aria-current')).to.equal('location');
 });
 
 test('renders different heading tag when specified', context => {
@@ -46,9 +45,9 @@ test('renders different heading tag when specified', context => {
 });
 
 test('handles pass-through html attributes for item', context => {
-    testUtils.testHtmlAttributes(context, 'li span', 'items');
+    testUtils.testHtmlAttributes(context, 'li a', 'items');
 });
 
 test('handles custom class for item', context => {
-    testUtils.testCustomClass(context, 'li span', 'items', true);
+    testUtils.testCustomClass(context, 'li a', 'items', true);
 });
